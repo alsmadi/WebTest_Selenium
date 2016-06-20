@@ -11,19 +11,17 @@ import org.openqa.selenium.remote.*;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-//Kevin Steele
-
-public class WebTestSelenium extends TestCase {
+public class WebTestSelenium7 extends TestCase {
 
     private WebDriver driver;
-    public static final String KEY = "b079187c2bd01e59cb4e88f2e1405c4a";
-    public static final String SECRET = "be36fbc1e23ebdbbd1b6490f5ad03217";
+    public static final String KEY = "af5bd93478b47903fca59e26f772ed6f";
+    public static final String SECRET = "1fc12d02da39b726005d400127e3fc4f";
     public static final String URL = "http://" + KEY + ":" + SECRET + "@hub.testingbot.com/wd/hub";
 
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("version", "11");
-        capabilities.setCapability("platform", Platform.MAC);
+        capabilities.setCapability("platform", Platform.WINDOWS);
         capabilities.setCapability("name", "Testing Selenium 2");
        try{
         this.driver = new RemoteWebDriver(
@@ -34,7 +32,7 @@ public class WebTestSelenium extends TestCase {
        catch(Exception ex){
            System.out.println("Driver problem");
        }
-        this.driver.get("http://www.yale.edu");
+        this.driver.get("http://www.cam.ac.uk/");
     }
  
     public void tearDown() throws Exception {
@@ -45,24 +43,20 @@ public class WebTestSelenium extends TestCase {
 //below are my test cases
     //test page title
     public void testTitle() throws Exception {
-        assertEquals(driver.getTitle(), "Yale University");
+        assertEquals(driver.getTitle(), "University of Cambridge");
     }
 
     //test url
     public void testURL() {
-        assertEquals(driver.getCurrentUrl(), "http://www.yale.edu/");
+        assertEquals(driver.getCurrentUrl(), "http://www.cam.ac.uk/");
     }
 
-    //test if element enabled
-    public void testIsEnabled() {
-        assertEquals(driver.findElement(By.id("header")).isEnabled(), true);
+    //test tag name using id
+    public void testTagNameById() {
+        assertEquals(driver.findElement(By.id("main")).getTagName(), "div");
     }
 
-    //test if element seleted
-    public void testIsSelected() {
-        assertEquals(driver.findElement(By.id("cboxTitle")).isSelected(), false);
-    }
-
+   
     //test the number of elements with the given class name
     public void testElementsByClassName() {
         assertEquals(driver.findElements(By.className("specific")).size(), 0);
@@ -71,6 +65,6 @@ public class WebTestSelenium extends TestCase {
 
     //test the number of elements with the given tag name
     public void testElementsByTagName() {
-        assertEquals(driver.findElements(By.tagName("input")).size(), 2);
+        assertEquals(driver.findElements(By.tagName("input")).size(), 6);
     }
 }

@@ -11,19 +11,17 @@ import org.openqa.selenium.remote.*;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-//Kevin Steele
-
-public class WebTestSelenium extends TestCase {
+public class WebTestSelenium4 extends TestCase {
 
     private WebDriver driver;
-    public static final String KEY = "b079187c2bd01e59cb4e88f2e1405c4a";
-    public static final String SECRET = "be36fbc1e23ebdbbd1b6490f5ad03217";
+    public static final String KEY = "6e5a239936a9bb135ee034d12dca9c5e";
+    public static final String SECRET = "9fec98912b491372c16394775c56a940";
     public static final String URL = "http://" + KEY + ":" + SECRET + "@hub.testingbot.com/wd/hub";
 
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("version", "11");
-        capabilities.setCapability("platform", Platform.MAC);
+        capabilities.setCapability("platform", Platform.WINDOWS);
         capabilities.setCapability("name", "Testing Selenium 2");
        try{
         this.driver = new RemoteWebDriver(
@@ -34,7 +32,7 @@ public class WebTestSelenium extends TestCase {
        catch(Exception ex){
            System.out.println("Driver problem");
        }
-        this.driver.get("http://www.yale.edu");
+        this.driver.get("http://www.harvard.edu/");
     }
  
     public void tearDown() throws Exception {
@@ -45,29 +43,44 @@ public class WebTestSelenium extends TestCase {
 //below are my test cases
     //test page title
     public void testTitle() throws Exception {
-        assertEquals(driver.getTitle(), "Yale University");
+        assertEquals(driver.getTitle(), "Harvard University");
     }
 
     //test url
     public void testURL() {
-        assertEquals(driver.getCurrentUrl(), "http://www.yale.edu/");
+        assertEquals(driver.getCurrentUrl(), "http://www.harvard.edu/");
     }
+
+    //test tag name using class
+    public void testTagNameByClass() {
+        assertEquals(driver.findElement(By.className("nav-drawer")).getTagName(), "div");
+    }
+
+    //test tag name using linkText
+//    public void testTagNameByLinkText() {
+//        assertEquals(driver.findElement(By.linkText("Future Students")).getTagName(), "a");
+//    }
+
+    //test tag name using id
+    public void testTagNameById() {
+        assertEquals(driver.findElement(By.id("page")).getTagName(), "div");
+    }
+
+    //test element attribute using id
+//    public void testAttribute() {
+//        assertEquals(driver.findElement(By.id("p10500896")).getAttribute("alt"), "gil fried");
+//    }
 
     //test if element enabled
     public void testIsEnabled() {
-        assertEquals(driver.findElement(By.id("header")).isEnabled(), true);
+        assertEquals(driver.findElement(By.id("page")).isEnabled(), true);
     }
 
     //test if element seleted
     public void testIsSelected() {
-        assertEquals(driver.findElement(By.id("cboxTitle")).isSelected(), false);
+        assertEquals(driver.findElement(By.id("page")).isSelected(), false);
     }
 
-    //test the number of elements with the given class name
-    public void testElementsByClassName() {
-        assertEquals(driver.findElements(By.className("specific")).size(), 0);
-
-    }
 
     //test the number of elements with the given tag name
     public void testElementsByTagName() {
