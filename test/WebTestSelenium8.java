@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 //Kevin Steele
 
-public class WebTestSelenium extends TestCase {
+public class WebTestSelenium8 extends TestCase {
 
     private WebDriver driver;
     public static final String KEY = "b079187c2bd01e59cb4e88f2e1405c4a";
